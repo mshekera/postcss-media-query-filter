@@ -1,51 +1,69 @@
-# PostCSS Plugin Boilerplate
+# postcss-media-query-filter [![Build Status][ci-img]][ci]
 
-<img align="right" width="135" height="95"
-     title="Philosopher’s stone, logo of PostCSS"
-     src="http://postcss.github.io/postcss/logo-leftp.svg">
+[PostCSS] plugin which allows to remove undesirable media-queries from output depending on provided min/max width
 
-Сreate new PostCSS plugins in a few steps:
+[PostCSS]: https://github.com/postcss/postcss
+[ci-img]:  https://travis-ci.org/mshekera/postcss-media-query-filter.svg
+[ci]:      https://travis-ci.org/mshekera/postcss-media-query-filter
 
-1. Clone this repository:
+Let's assume next options were provided to plugin:
 
-```sh
-git clone https://github.com/postcss/postcss-plugin-boilerplate.git
+```js
+{
+  minWidth: 500,
+  maxWidth: 1000,
+}
 ```
 
-2. Execute the wizard script. It will ask you a few questions
-   and fill all files with your data.
+#### Input:
+```css
+@media all and (min-width: 100px) {
+  .cn1 {
+    color: red;
+  }
+}
 
-```sh
-node ./postcss-plugin-boilerplate/start
+@media all and (min-width: 200px) and (max-width: 600px) {
+    .cn2 {
+        color: blue;
+    }
+}
+
+@media all and (max-width: 400px) {
+    .cn3 {
+        color: green;
+    }
+}
+
+@media all and (min-width: 1200px) {
+    .cn4 {
+        color: white;
+    }
+}
 ```
 
-Call it with `--yarn` argument, if you prefer [yarn](https://yarnpkg.com/)
-package manager:
+#### Output:
+```css
+.cn1 {
+    color: red;
+}
 
-```sh
-node ./postcss-plugin-boilerplate/start --yarn
+@media all and (min-width: 200px) and (max-width: 600px) {
+    .cn2 {
+        color: blue;
+    }
+}
 ```
 
-Or use `--no-install` if you want to skip dependencies installation.
+## Usage
 
-3. Your plugin repository will now have a clean Git history.
-[Create the GitHub repository](https://github.com/new)
-and push your project there.
+```js
+postcss([ require('postcss-media-query-filter')(options) ])
+```
 
-4. Add your project to [Travis CI](https://travis-ci.org).
+Options:
+* minWidth - Number (defaults to -Infinity) - styles for lower width will be treated as not needed
+* maxWidth - Number (defaults to Infinity) - styles for higher width will be treated as not needed
+* type - String (defaults to screen) - media query type which will be used by [css-mediaquery](https://www.npmjs.com/package/css-mediaquery) for matching (all, screen, print etc)
 
-5. Write some code to `index.js` and tests to `index.test.js`.
-
-6. Execute `npm test` command
-
-7. Add input and output CSS examples to `README.md`.
-
-8. Add options descriptions if your plugin has them.
-
-9. Fill `CHANGELOG.md` with initial version and release it to npm.
-
-10. Fork [PostCSS](https://github.com/postcss/postcss), add your plugin to the
-[Plugins list](https://github.com/postcss/postcss/blob/master/docs/plugins.md)
-and send a pull request.
-
-11. Follow [@PostCSS](https://twitter.com/postcss) to get the latest updates.
+See [PostCSS] docs for examples for your environment.

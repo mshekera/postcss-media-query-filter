@@ -1,20 +1,24 @@
 {
-  "name": "PLUGIN_NAME",
-  "version": "0.0.0",
-  "description": "PostCSS plugin PLUGIN_DESC",
+  "name": "postcss-media-query-filter",
+  "version": "0.1.0",
+  "description": "PostCSS plugin which allows to remove undesirable media-queries from output depending on provided min/max width",
   "keywords": [
     "postcss",
     "css",
-    "postcss-plugin"KEYWORDS
+    "postcss-plugin",
+    "media-query",
+    "filter",
+    "mq"
   ],
-  "author": "AUTHOR_NAME <AUTHOR_EMAIL>",
+  "author": "Max Shekera <max.shekera@gmail.com>",
   "license": "MIT",
-  "repository": "GITHUB_NAME/PLUGIN_NAME",
+  "repository": "mshekera/postcss-media-query-filter",
   "bugs": {
-    "url": "https://github.com/GITHUB_NAME/PLUGIN_NAME/issues"
+    "url": "https://github.com/mshekera/postcss-media-query-filter/issues"
   },
-  "homepage": "https://github.com/GITHUB_NAME/PLUGIN_NAME",
+  "homepage": "https://github.com/mshekera/postcss-media-query-filter",
   "dependencies": {
+    "css-mediaquery": "^0.1.2",
     "postcss": "^6.0.16"
   },
   "devDependencies": {
@@ -23,12 +27,31 @@
     "jest": "^22.4.2"
   },
   "scripts": {
-    "test": "jest && eslint *.js"
+    "test": "jest && eslint *.js",
+    "test:watch": "jest --watch"
   },
   "eslintConfig": {
     "extends": "eslint-config-postcss/es5",
-    "env": {
-      "jest": true
+    "overrides": [
+      {
+        "files": ["*.test.js"],
+        "env": {
+          "jest": true
+        },
+        "rules": {
+          "no-var": 2,
+          "func-style": [2, "declaration", {"allowArrowFunctions" : true}]
+        }
+      },
+      {
+        "files": ["tools/**/*.js"],
+        "rules": {
+          "no-console": "off"
+        }
+      }
+    ],
+    "rules": {
+      "max-len": [2, 180]
     }
   },
   "jest": {
