@@ -15,7 +15,7 @@ Let's assume next options were provided to plugin:
 }
 ```
 
-#### Input:
+### Input:
 ```css
 @media all and (min-width: 100px) {
   .cn1 {
@@ -42,7 +42,7 @@ Let's assume next options were provided to plugin:
 }
 ```
 
-#### Output:
+### Output:
 ```css
 .cn1 {
     color: red;
